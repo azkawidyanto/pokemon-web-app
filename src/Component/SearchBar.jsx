@@ -10,7 +10,7 @@ const SearchBar = ({ handleSubmit }) => {
 					setPoke(event.target.value);
 				}}
 			/>
-			<button onClick={() => handleSubmit(poke)}>Submit</button>
+			<button onClick={() => handleSubmit(poke)}>Filter</button>
 		</div>
 	);
 };
