@@ -6,6 +6,7 @@ const SearchBar = ({ handleSubmit }) => {
 	return (
 		<div>
 			<input
+				placeholder='filter by type'
 				onChange={(event) => {
 					setPoke(event.target.value);
 				}}

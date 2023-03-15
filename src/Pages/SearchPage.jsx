@@ -15,41 +15,41 @@ const SearchPage = () => {
 
 	const [limit, setLimit] = useState(0);
 	const handleFilter = useCallback((type) => {
-		fetch(`https://pokeapi.co/api/v2/typr/${type}`)
+		fetch(`https://pokeapi.co/api/v2/type/${type}`)
 			.then((response) => response.json())
-			.then((data) => setListPokemon(data?.pokemon));
+			.then((data) => {
+				console.log(data?.pokemon);
+				setListPokemon(data?.pokemon);
+			});
 
 		setShowFilter(true);
 	}, []);
 
 	const pokemonData = useCallback((limit) => {
-		fetch(`https://pokeapi.co/api/v2/pokemon?offset=${limit}&limit=20`)
-			.then((response) => {
-				console.log(response);
-				response.json();
-			})
+		fetch(
+			`https://pokeapi.co/api/v2/pokemon?offset=${limit}&limit=${20 + limit}`,
+		)
+			.then((response) => response.json())
 			.then((data) => setListPokemon(data?.results));
 	}, []);
 
 	const pokeList = useCallback(() => {
 		fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
 			.then((response) => {
-				console.log(response);
 				response.json();
 			})
-			.then((data) => setPokeData(data));
+			.then((data) => {
+				setPokeData(data);
+			});
 	}, [pokemon]);
 
-	function pickPokenon(name) {
+	function pickPokemon(name) {
 		setPokemon(name);
 		pokeList();
 	}
 
-	useEffect(() => {
-		pokemonData(limit);
-	}, [limit, pokemonData]);
+	useEffect(() => pokemonData(limit), [limit, pokemonData]);
 
-	console.log(listPokemon);
 	return (
 		<div>
 			<div>
@@ -57,13 +57,15 @@ const SearchPage = () => {
 			</div>
 			{!showFilter
 				? listPokemon?.map((element) => (
-						<div onClick={() => pickPokenon(element.name)}>{element.name}</div>
+						<div onClick={() => pickPokemon(element.name)}>{element.name}</div>
 				  ))
-				: listPokemon?.map((element) => (
-						<div onClick={() => pickPokenon(element.pokemon.name)}>
-							{element.pokemon.name}
-						</div>
-				  ))}
+				: listPokemon?.map((element) => {
+						return (
+							<div onClick={() => pickPokemon(element?.pokemon?.name)}>
+								{element?.pokemon?.name}
+							</div>
+						);
+				  })}
 			<div onClick={() => setLimit(limit + 20)}>Show More Pokemon</div>
 			{showPokemon && <ImageCard />}
 		</div>
