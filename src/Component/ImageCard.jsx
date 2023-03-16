@@ -17,7 +17,7 @@ const ImageCard = ({ data }) => {
 	return (
 		<div>
 			<img src={image} alt={data?.id} />
-
+			<div>{data?.name}</div>
 			<div>
 				{abilityData?.map((element, index) => {
 					console.log(element);

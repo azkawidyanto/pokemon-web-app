@@ -50,7 +50,15 @@ const SearchPage = () => {
 			<div>
 				<SearchBar handleSubmit={handleFilter} />
 			</div>
-			<div classname="poke-page">
+			<div
+				classname="Poke-page"
+				style={{
+					display: "flex",
+					width: "100vw",
+					alignItems: "stretch",
+					justifyContent: "space-evenly",
+				}}
+			>
 				<div>
 					{!showFilter
 						? listPokemon?.map((element) => (
@@ -64,7 +72,7 @@ const SearchPage = () => {
 								</div>
 						  ))}
 				</div>
-				<div>{showPokemon && <ImageCard data={pokeData} />}</div>
+				{showPokemon && <ImageCard data={pokeData} />}
 			</div>
 
 			<div onClick={() => setLimit(limit + 20)}>Show More Pokemon</div>
