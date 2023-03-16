@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import ImageCard from "../Component/ImageCard";
 import SearchBar from "../Component/SearchBar";
 
@@ -17,10 +16,7 @@ const SearchPage = () => {
 	const handleFilter = useCallback((type) => {
 		fetch(`https://pokeapi.co/api/v2/type/${type}`)
 			.then((response) => response.json())
-			.then((data) => {
-				console.log(data?.pokemon);
-				setListPokemon(data?.pokemon);
-			});
+			.then((data) => setListPokemon(data?.pokemon));
 
 		setShowFilter(true);
 	}, []);
@@ -35,17 +31,16 @@ const SearchPage = () => {
 
 	const pokeList = useCallback(() => {
 		fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-			.then((response) => {
-				response.json();
-			})
-			.then((data) => {
-				setPokeData(data);
-			});
+			.then((response) => response.json())
+			.then((data) => setPokeData(data));
 	}, [pokemon]);
 
 	function pickPokemon(name) {
 		setPokemon(name);
 		pokeList();
+		console.log(pokemon, pokeData);
+
+		setShowPokemon(true);
 	}
 
 	useEffect(() => pokemonData(limit), [limit, pokemonData]);
@@ -55,19 +50,24 @@ const SearchPage = () => {
 			<div>
 				<SearchBar handleSubmit={handleFilter} />
 			</div>
-			{!showFilter
-				? listPokemon?.map((element) => (
-						<div onClick={() => pickPokemon(element.name)}>{element.name}</div>
-				  ))
-				: listPokemon?.map((element) => {
-						return (
-							<div onClick={() => pickPokemon(element?.pokemon?.name)}>
-								{element?.pokemon?.name}
-							</div>
-						);
-				  })}
+			<div classname="poke-page">
+				<div>
+					{!showFilter
+						? listPokemon?.map((element) => (
+								<div onClick={() => pickPokemon(element.name)}>
+									{element.name}
+								</div>
+						  ))
+						: listPokemon?.map((element) => (
+								<div onClick={() => pickPokemon(element?.pokemon?.name)}>
+									{element?.pokemon?.name}
+								</div>
+						  ))}
+				</div>
+				<div>{showPokemon && <ImageCard data={pokeData} />}</div>
+			</div>
+
 			<div onClick={() => setLimit(limit + 20)}>Show More Pokemon</div>
-			{showPokemon && <ImageCard />}
 		</div>
 	);
 };
