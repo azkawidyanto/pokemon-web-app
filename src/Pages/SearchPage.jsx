@@ -37,11 +37,14 @@ const SearchPage = () => {
 
 	function pickPokemon(name) {
 		setPokemon(name);
-		pokeList();
-		console.log(pokemon, pokeData);
-
-		setShowPokemon(true);
 	}
+
+	useEffect(() => {
+		if (pokemon !== "") {
+			pokeList();
+			setShowPokemon(true);
+		}
+	}, [pokeList, pokemon]);
 
 	useEffect(() => pokemonData(limit), [limit, pokemonData]);
 
