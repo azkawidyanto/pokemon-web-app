@@ -1,4 +1,4 @@
-import { getByText, render, screen } from "@testing-library/react";
+import {  render, screen } from "@testing-library/react";
 import SearchPage from "./SearchPage";
 
 test("Search Page", () => {

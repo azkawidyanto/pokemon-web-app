@@ -15,8 +15,8 @@ const ImageCard = ({ data }) => {
 	const abilityData = data?.abilities;
 	const typeData = data?.types;
 	return (
-		<div>
-			<img src={image} alt={data?.id} />
+		<div style={{ fontSize: "20px" }}>
+			<img src={image} alt={data?.id} style={{ width: "10vw" }} />
 			<div>{data?.name}</div>
 			<div>
 				{abilityData?.map((element, index) => {

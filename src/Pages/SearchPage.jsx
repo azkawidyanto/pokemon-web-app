@@ -46,7 +46,7 @@ const SearchPage = () => {
 	useEffect(() => pokemonData(limit), [limit, pokemonData]);
 
 	return (
-		<div>
+		<div style={{ fontSize: "20px", padding: "5vw" }}>
 			<div>
 				<SearchBar handleSubmit={handleFilter} />
 			</div>
