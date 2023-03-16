@@ -46,7 +46,7 @@ const SearchPage = () => {
 	useEffect(() => pokemonData(limit), [limit, pokemonData]);
 
 	return (
-		<div style={{ fontSize: "20px", padding: "5vw" }}>
+		<div style={{ fontSize: "20px", padding: "5vw 0" }}>
 			<div>
 				<SearchBar handleSubmit={handleFilter} />
 			</div>
@@ -75,7 +75,9 @@ const SearchPage = () => {
 				{showPokemon && <ImageCard data={pokeData} />}
 			</div>
 
-			<div onClick={() => setLimit(limit + 20)}>Show More Pokemon</div>
+			<div style={{ marginTop: "5vw" }} onClick={() => setLimit(limit + 20)}>
+				Show More Pokemon
+			</div>
 		</div>
 	);
 };
