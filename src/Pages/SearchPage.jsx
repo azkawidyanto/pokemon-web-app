@@ -4,15 +4,12 @@ import SearchBar from "../Component/SearchBar";
 
 const SearchPage = () => {
 	const [pokeData, setPokeData] = useState([]);
-
 	const [listPokemon, setListPokemon] = useState([]);
 	const [pokemon, setPokemon] = useState("");
-
 	const [showPokemon, setShowPokemon] = useState(false);
-
 	const [showFilter, setShowFilter] = useState(false);
-
 	const [limit, setLimit] = useState(0);
+
 	const handleFilter = useCallback((type) => {
 		fetch(`https://pokeapi.co/api/v2/type/${type}`)
 			.then((response) => response.json())
@@ -35,9 +32,9 @@ const SearchPage = () => {
 			.then((data) => setPokeData(data));
 	}, [pokemon]);
 
-	function pickPokemon(name) {
+	const pickPokemon = (name) => {
 		setPokemon(name);
-	}
+	};
 
 	useEffect(() => {
 		if (pokemon !== "") {
